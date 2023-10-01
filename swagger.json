@@ -5,7 +5,7 @@
     "description": "Employees Api",
     "version": "1.0.0"
   },
-  "host": "https://project2-7wf5.onrender.com/",
+  "host": "project2-7wf5.onrender.com/",
   "basePath": "/",
   "schemes": [
     "https"
