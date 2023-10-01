@@ -5,11 +5,10 @@
     "description": "Employees Api",
     "version": "1.0.0"
   },
-  "host": "localhost:3002",
+  "host": "https://project2-7wf5.onrender.com/",
   "basePath": "/",
   "schemes": [
-    "https",
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
