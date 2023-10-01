@@ -4,9 +4,9 @@ const validateEmployee = (req, res, next) => {
   const validationRule = {
     name: 'required|string',
     last_name: 'required|string',
-    age: 'required|int',
+    age: 'required|string',
     safety_equipment: 'required|string',
-    trainings: 'int'
+    trainings: 'string'
   };
   validator(req.body, validationRule, {}, (err, status) => {
     if (!status) {

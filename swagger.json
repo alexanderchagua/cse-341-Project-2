@@ -5,9 +5,10 @@
     "description": "Employees Api",
     "version": "1.0.0"
   },
-  "host": "project2-7wf5.onrender.com/",
+  "host": "https://project2-7wf5.onrender.com",
   "basePath": "/",
   "schemes": [
+    
     "https"
   ],
   "paths": {
@@ -34,7 +35,7 @@
     "/employees/": {
       "get": {
         "tags": [
-          "Dates"
+          "Employees"
         ],
         "description": "",
         "produces": [
@@ -48,7 +49,7 @@
       },
       "post": {
         "tags": [
-          "Dates"
+          "Employees"
         ],
         "description": "",
         "parameters": [
@@ -58,16 +59,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "area": {
-                  "example": "any"
-                },
                 "name": {
                   "example": "any"
                 },
-                "old": {
+                "last_name": {
                   "example": "any"
                 },
-                "epp": {
+                "age": {
+                  "example": "any"
+                },
+                "safety_equipment": {
+                  "example": "any"
+                },
+                "trainings": {
                   "example": "any"
                 }
               }
@@ -87,7 +91,7 @@
     "/employees/{id}": {
       "get": {
         "tags": [
-          "Dates"
+          "Employees"
         ],
         "description": "",
         "produces": [
@@ -109,7 +113,7 @@
       },
       "put": {
         "tags": [
-          "Dates"
+          "Employees"
         ],
         "description": "",
         "parameters": [
@@ -125,16 +129,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "area": {
-                  "example": "any"
-                },
                 "name": {
                   "example": "any"
                 },
-                "old": {
+                "last_name": {
                   "example": "any"
                 },
-                "epp": {
+                "age": {
+                  "example": "any"
+                },
+                "safety_equipment": {
+                  "example": "any"
+                },
+                "trainings": {
                   "example": "any"
                 }
               }
@@ -152,7 +159,7 @@
       },
       "delete": {
         "tags": [
-          "Dates"
+          "Employees"
         ],
         "description": "",
         "parameters": [

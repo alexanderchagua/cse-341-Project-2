@@ -2,65 +2,89 @@ const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
-    //#swagger.tags=['employees']
-    const result = await mongodb.getDatabase().db().collection('employees').find();
-    result.toArray().then((dates) => {
+    try {
+        //#swagger.tags=['Employees']
+        const result = await mongodb.getDatabase().db().collection('employees').find();
+        const employees = await result.toArray();
         res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(dates);
-    });
+        res.status(200).json(employees);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 const getSingle = async (req, res) => {
-    //#swagger.tags=['employees']
-    const dateId = new ObjectId(req.params.id);
-    const result = await mongodb.getDatabase().db().collection('employees').find({ _id: dateId });
-    result.toArray().then((dates) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(dates[0]);
-    });
+    try {
+        //#swagger.tags=['Employees']
+        const employeesId = new ObjectId(req.params.id);
+        const result = await mongodb.getDatabase().db().collection('employees').find({ _id: employeesId });
+        const employees = await result.toArray();
+        if (employees.length === 0) {
+            res.status(404).json({ error: 'Employee not found' });
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(employees[0]);
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
 
 const createDate = async (req, res) => {
-    //#swagger.tags=['employees']
-    const date = {
-        area: req.body.area,
-        name: req.body.name,
-        old: req.body.old,
-        epp: req.body.epp
-    };
-    const response = await mongodb.getDatabase().db().collection('employees').insertOne(date);
-    if (response.acknowledged) {
-        res.status(204).send();
-    } else {
-        res.status(500).json(response.error || 'Some error occurred while creating the date entry.');
+    try {
+        //#swagger.tags=['Employees']
+        const employee = {
+            name: req.body.name,
+            last_name: req.body.last_name,
+            age: req.body.age,
+            safety_equipment: req.body.safety_equipment,
+            trainings: req.body.trainings
+        };
+        const response = await mongodb.getDatabase().db().collection('employees').insertOne(employee);
+        if (response.acknowledged) {
+            res.status(204).send();
+        } else {
+            res.status(500).json({ error: 'Some error occurred while creating the employee entry.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 
 const updateDate = async (req, res) => {
-    //#swagger.tags=['employees']
-    const dateId = new ObjectId(req.params.id);
-    const date = {
-        area: req.body.area,
-        name: req.body.name,
-        old: req.body.old,
-        epp: req.body.epp
-    };
-    const response = await mongodb.getDatabase().db().collection('employees').replaceOne({ _id: dateId }, date);
-    if (response.modifiedCount > 0) {
-        res.status(204).send();
-    } else {
-        res.status(500).json(response.error || 'Some error occurred while updating the date entry.');
+    try {
+        //#swagger.tags=['Employees']
+        const employeeId = new ObjectId(req.params.id);
+        const employee = {
+            name: req.body.name,
+            last_name: req.body.last_name,
+            age: req.body.age,
+            safety_equipment: req.body.safety_equipment,
+            trainings: req.body.trainings
+        };
+        const response = await mongodb.getDatabase().db().collection('employees').replaceOne({ _id: employeeId }, employee);
+        if (response.modifiedCount > 0) {
+            res.status(204).send();
+        } else {
+            res.status(500).json({ error: 'Some error occurred while updating the employee entry.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 
 const deleteDate = async (req, res) => {
-    //#swagger.tags=['Dates']
-    const dateId = new ObjectId(req.params.id);
-    const response = await mongodb.getDatabase().db().collection('employees').deleteOne({ _id: dateId });
-    if (response.deletedCount > 0) {
-        res.status(204).send();
-    } else {
-        res.status(500).json(response.error || 'Some error occurred while deleting the date entry.');
+    try {
+        //#swagger.tags=['Employees']
+        const employeeId = new ObjectId(req.params.id);
+        const response = await mongodb.getDatabase().db().collection('employees').deleteOne({ _id: employeeId });
+        if (response.deletedCount > 0) {
+            res.status(204).send();
+        } else {
+            res.status(500).json({ error: 'Some error occurred while deleting the employee entry.' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 
