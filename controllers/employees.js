@@ -42,7 +42,7 @@ const createDate = async (req, res) => {
         };
         const response = await mongodb.getDatabase().db().collection('employees').insertOne(employee);
         if (response.acknowledged) {
-            res.status(204).send();
+            res.status(201).send(response);
         } else {
             res.status(500).json({ error: 'Some error occurred while creating the employee entry.' });
         }
@@ -64,12 +64,12 @@ const updateDate = async (req, res) => {
         };
         const response = await mongodb.getDatabase().db().collection('employees').replaceOne({ _id: employeeId }, employee);
         if (response.modifiedCount > 0) {
-            res.status(204).send();
+            res.status(204).send(response);
         } else {
-            res.status(500).json({ error: 'Some error occurred while updating the employee entry.' });
+            res.status(400).json("Invalid ID entered. Please try again");
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json(response.error || "An error occurred. Please try again");
     }
 };
 
@@ -79,7 +79,7 @@ const deleteDate = async (req, res) => {
         const employeeId = new ObjectId(req.params.id);
         const response = await mongodb.getDatabase().db().collection('employees').deleteOne({ _id: employeeId });
         if (response.deletedCount > 0) {
-            res.status(204).send();
+            res.status(200).send(response);
         } else {
             res.status(500).json({ error: 'Some error occurred while deleting the employee entry.' });
         }
